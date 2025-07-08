@@ -19,11 +19,8 @@ class UsersController < ApplicationController
 
     @user = User.new(user_params)
     @user.id = 1
-    if @user.save
-      redirect_to root_path
-    else
-      render :new
-    end
+    @user.save!
+    redirect_to root_path
   end
 
   def update
@@ -35,11 +32,8 @@ class UsersController < ApplicationController
       return
     end
 
-    if @user.update(user_params)
-      redirect_to root_path
-    else
-      render :edit
-    end
+    @user.update!(user_params)
+    redirect_to root_path
   end
 
   private
