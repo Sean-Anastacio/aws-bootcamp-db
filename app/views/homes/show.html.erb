@@ -1,0 +1,19 @@
+<body>
+<h1>Hello Camp<%= Time.zone.today.strftime("%Y%m") %> AWS Bootcamp !!</h1>
+
+<p>
+  <% if Rails.env.production? %>
+    🚀 Yeah!! This is <strong><%= "#{@first_user.name}'s" %></strong> app is running on <strong>AWS (Production)</strong>!
+  <% else %>
+    🛠️ This is <strong><%= "#{@first_user.name}'s" %></strong> app is running <strong>locally</strong> (環境: <%= Rails.env %>)!
+  <% end %>
+</p>
+
+<p>
+  <% if @first_user.nil? %>
+    <%= link_to 'ユーザー作成ページへ', new_user_path %>
+  <% else %>
+    <%= link_to 'ユーザー編集ページへ', edit_user_path(1) %>
+  <% end %>
+</p>
+</body>
