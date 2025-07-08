@@ -12,9 +12,15 @@ class UsersController < ApplicationController
   end
 
   def create
+    if user_params[:name].blank?
+      redirect_to root_path
+      return
+    end
+
     @user = User.new(user_params)
+    @user.id = 1
     if @user.save
-      redirect_to @user
+      redirect_to root_path
     else
       render :new
     end
@@ -22,8 +28,15 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+
+    if user_params[:name].blank?
+      @user.destroy!
+      redirect_to root_path
+      return
+    end
+
     if @user.update(user_params)
-      redirect_to @user
+      redirect_to root_path
     else
       render :edit
     end
@@ -32,6 +45,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name)
+    params.require(:user).permit(:id, :name)
   end
 end
